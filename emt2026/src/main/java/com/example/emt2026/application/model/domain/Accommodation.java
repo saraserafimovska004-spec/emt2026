@@ -1,0 +1,60 @@
+package com.example.emt2026.application.model.domain;
+
+import com.example.emt2026.application.model.enums.Category;
+import com.example.emt2026.application.model.enums.Condition;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@Table(name = "accommodations")
+public class Accommodation extends BaseAuditableEntity {
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "host_id", nullable = false)
+    private Host host;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Condition condition = Condition.GOOD;
+
+    @Column(nullable = false)
+    private Integer numRooms;
+
+    @Column(nullable = false)
+    private Boolean rented = Boolean.FALSE;
+
+    public Accommodation(String name, Category category, Host host, Condition condition, Integer numRooms) {
+        this.name = name;
+        this.category = category;
+        this.host = host;
+        this.condition = condition;
+        this.numRooms = numRooms;
+        this.rented = false;
+    }
+
+    public Accommodation(String name, Category category, Host host, Condition condition, Integer numRooms, Boolean rented) {
+        this.name = name;
+        this.category = category;
+        this.host = host;
+        this.condition = condition;
+        this.numRooms = numRooms;
+        this.rented = rented;
+    }
+}

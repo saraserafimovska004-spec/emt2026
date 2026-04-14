@@ -1,0 +1,23 @@
+package com.example.emt2026.application.service.domain;
+
+
+
+import com.example.emt2026.application.model.domain.Accommodation;
+
+import java.util.List;
+
+public interface AccommodationService {
+    List<Accommodation> findAll();
+
+    List<Accommodation> findAllByRented(Boolean rented);
+
+    Accommodation findById(Long id);
+
+    Accommodation create(Accommodation accommodation);
+
+    Accommodation update(Long id, Accommodation accommodation);
+
+    Accommodation delete(Long id);
+
+    Accommodation rent(Long id);
+}
